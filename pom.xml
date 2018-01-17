@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.bulenkov</groupId>
+    <artifactId>darcula</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+
+    <name>Darcula LAF</name>
+    
+    <repositories>
+        <repository>
+            <id>repo</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>file:///${project.basedir}/target/repo</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.intellij</groupId>
+            <artifactId>annotations</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bulenkov</groupId>
+            <artifactId>iconloader</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+    </dependencies>
+    
+    <build>
+        <!-- not a standard Maven project -->
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <packageName>${project.groupId}</packageName>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install-iconloader</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${basedir}/lib/iconloader.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>com.bulenkov</groupId>
+                            <artifactId>iconloader</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <localRepositoryPath>target/repo</localRepositoryPath>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-annotations</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${basedir}/lib/annotations.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>org.intellij</groupId>
+                            <artifactId>annotations</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <localRepositoryPath>target/repo</localRepositoryPath>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>        
+        </plugins>
+    </build>
+</project>
