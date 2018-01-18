@@ -15,7 +15,12 @@
             <comments>A business-friendly OSS license</comments>
         </license>    
     </licenses>
-    
+    <scm>
+        <connection>scm:git:https://github.com/jmborer/Darcula.git</connection>
+        <developerConnection>scm:git:https://github.com/jmborer/Darcula.git</developerConnection>
+        <tag>Maven</tag>
+        <url>https://github.com/jmborer/Darcula</url>
+    </scm>
     <repositories>
         <repository>
             <id>repo</id>
@@ -25,7 +30,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>file:///${project.basedir}/target/repo</url>
+            <url>file:///${project.basedir}/${build.directory}/repo</url>
         </repository>
     </repositories>
     
@@ -46,6 +51,7 @@
     <build>
         <!-- not a standard Maven project -->
         <sourceDirectory>src</sourceDirectory>
+        <finalName>${artifactId}-${version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -90,7 +96,7 @@
                             <version>1.0</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <localRepositoryPath>target/repo</localRepositoryPath>
+                            <localRepositoryPath>${build.directory}/repo</localRepositoryPath>
                         </configuration>
                     </execution>
                     <execution>
@@ -107,7 +113,7 @@
                             <version>1.0</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <localRepositoryPath>target/repo</localRepositoryPath>
+                            <localRepositoryPath>${build.directory}/repo</localRepositoryPath>
                         </configuration>
                     </execution>
                 </executions>
