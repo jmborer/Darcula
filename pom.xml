@@ -7,16 +7,32 @@
 
     <name>Darcula LAF</name>
     
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>manual</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>    
+    </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/jmborer/Darcula.git</connection>
+        <developerConnection>scm:git:https://github.com/jmborer/Darcula.git</developerConnection>
+        <tag>Maven</tag>
+        <url>https://github.com/jmborer/Darcula</url>
+    </scm>
     <repositories>
         <repository>
-            <id>repo</id>
+            <id>local-repo</id>
+            <name>local-repo</name>
             <releases>
                 <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>file:///${project.basedir}/target/repo</url>
+            <url>file:///${project.build.directory}/repo</url>
         </repository>
     </repositories>
     
@@ -37,6 +53,7 @@
     <build>
         <!-- not a standard Maven project -->
         <sourceDirectory>src</sourceDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -50,7 +67,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.1.0</version>
                 <configuration>
                     <archive>
                         <index>true</index>
@@ -74,14 +91,14 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/lib/iconloader.jar</file>
+                            <file>${project.basedir}/lib/iconloader.jar</file>
                             <repositoryLayout>default</repositoryLayout>
                             <groupId>com.bulenkov</groupId>
                             <artifactId>iconloader</artifactId>
                             <version>1.0</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <localRepositoryPath>target/repo</localRepositoryPath>
+                            <localRepositoryPath>${project.build.directory}/repo</localRepositoryPath>
                         </configuration>
                     </execution>
                     <execution>
@@ -91,14 +108,14 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/lib/annotations.jar</file>
+                            <file>${project.basedir}/lib/annotations.jar</file>
                             <repositoryLayout>default</repositoryLayout>
                             <groupId>org.intellij</groupId>
                             <artifactId>annotations</artifactId>
                             <version>1.0</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <localRepositoryPath>target/repo</localRepositoryPath>
+                            <localRepositoryPath>${project.build.directory}/repo</localRepositoryPath>
                         </configuration>
                     </execution>
                 </executions>
