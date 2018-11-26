@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bulenkov</groupId>
     <artifactId>darcula</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <name>Darcula LAF</name>
 
@@ -58,6 +58,16 @@
     <build>
         <!-- not a standard Maven project -->
         <sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.css</include>
+                    <include>**/*.png</include>
+                </includes>
+            </resource>
+        </resources>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
@@ -76,6 +86,7 @@
                 <configuration>
                     <archive>
                         <index>true</index>
+                        <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
                             <packageName>${project.groupId}</packageName>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -92,6 +103,15 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <archive>
+                        <index>true</index>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <packageName>${project.groupId}</packageName>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
@@ -147,4 +167,16 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>inch-forge-releases</id>
+            <name>inch-forge-releases</name>
+            <url>http://inch-forge.skyguide.corp/artifactory/third-party</url>
+        </repository>
+        <snapshotRepository>
+            <id>inch-forge-snapshots</id>
+            <name>inch-forge-snapshots</name>
+            <url>http://inch-forge.skyguide.corp/artifactory/third-party</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
